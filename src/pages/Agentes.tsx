@@ -1,4 +1,10 @@
+import { useState } from "react";
 import { Header } from "@/components/Header";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Video, Upload } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import { Footer } from "@/components/Footer";
 import { AgentCard } from "@/components/AgentCard";
 import { 
@@ -13,6 +19,17 @@ import {
 import { Card } from "@/components/ui/card";
 
 const Agentes = () => {
+  const { hasRole } = useAuth();
+  const { toast } = useToast();
+  const [recordingModalOpen, setRecordingModalOpen] = useState(false);
+
+  const handleUploadVideo = () => {
+    toast({
+      title: "Funcionalidade em desenvolvimento",
+      description: "Backend necessário para processar e analisar vídeos com IA",
+    });
+    setRecordingModalOpen(false);
+  };
   const agents = [
     {
       id: 1,
@@ -87,6 +104,62 @@ const Agentes = () => {
               para oferecer suporte completo aos treinamentos da AeC
             </p>
           </div>
+
+          {/* Seção especial para instrutores */}
+          {hasRole('instrutor') && (
+            <Card className="mb-8 border-primary/50 bg-gradient-to-r from-primary/5 to-accent/5 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold mb-2">Gravação de Aula para Avaliação</h3>
+                  <p className="text-muted-foreground">
+                    Grave suas aulas e receba feedback automatizado da IA sobre didática, 
+                    clareza e engajamento.
+                  </p>
+                </div>
+                <Dialog open={recordingModalOpen} onOpenChange={setRecordingModalOpen}>
+                  <DialogTrigger asChild>
+                    <Button size="lg">
+                      <Video className="mr-2 h-5 w-5" />
+                      Gravar Aula
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Gravar Aula para Avaliação IA</DialogTitle>
+                      <DialogDescription>
+                        Faça upload de um vídeo da sua aula para receber análise detalhada da IA
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 py-4">
+                      <div className="border-2 border-dashed rounded-lg p-8 text-center">
+                        <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Arraste um arquivo de vídeo ou clique para selecionar
+                        </p>
+                        <input
+                          type="file"
+                          accept="video/*"
+                          className="hidden"
+                          id="video-upload"
+                        />
+                        <Button asChild variant="outline">
+                          <label htmlFor="video-upload" className="cursor-pointer">
+                            Selecionar Vídeo
+                          </label>
+                        </Button>
+                      </div>
+                      <Button onClick={handleUploadVideo} className="w-full">
+                        Enviar para Análise
+                      </Button>
+                      <p className="text-xs text-muted-foreground text-center">
+                        A IA analisará: clareza, didática, engajamento, domínio do conteúdo e uso de exemplos
+                      </p>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </Card>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {agents.map((agent, index) => (
