@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ChatMessage } from "./ChatMessage";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   role: "user" | "assistant";
@@ -156,25 +157,41 @@ Por favor, seja mais específico para que eu possa direcionar ao agente especial
   };
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
 
     const userMessage: Message = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input;
     setInput("");
     setIsLoading(true);
 
-    // Simulação de processamento
-    setTimeout(() => {
-      const { content, agentType } = simulateResponse(input);
+    try {
+      const { data, error } = await supabase.functions.invoke('chat-with-nexus', {
+        body: { message: currentInput },
+      });
+
+      if (error) throw error;
+
+      const assistantMessage: Message = {
+        role: "assistant",
+        content: data.resposta,
+        agentType: data.agente,
+      };
+      setMessages((prev) => [...prev, assistantMessage]);
+      toast.success("Resposta processada");
+    } catch (error) {
+      console.error('Erro:', error);
+      const { content, agentType } = simulateResponse(currentInput);
       const assistantMessage: Message = {
         role: "assistant",
         content,
         agentType,
       };
       setMessages((prev) => [...prev, assistantMessage]);
+      toast.error("Usando modo offline");
+    } finally {
       setIsLoading(false);
-      toast.success("Resposta processada");
-    }, 1000);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
