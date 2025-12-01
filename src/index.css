@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* AeC Color System - Palette Colors */
+    --cobalto: 210 85% 40%;
+    --ceu: 190 85% 55%;
+    --rubi: 340 80% 60%;
+    --sol: 50 100% 55%;
+    --folha: 85 50% 60%;
+    
+    /* Base colors */
+    --background: 0 0% 98%;
+    --foreground: 210 85% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 85% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 85% 15%;
+
+    /* Primary - Cobalto */
+    --primary: 210 85% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Céu */
+    --secondary: 190 85% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 25% 95%;
+    --muted-foreground: 210 25% 45%;
+
+    /* Accent - Folha */
+    --accent: 85 50% 60%;
+    --accent-foreground: 210 85% 15%;
+
+    /* Destructive - Rubi */
+    --destructive: 340 80% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success - Sol */
+    --success: 50 100% 55%;
+    --success-foreground: 210 85% 15%;
+
+    --border: 210 25% 90%;
+    --input: 210 25% 90%;
+    --ring: 210 85% 40%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--cobalto)), hsl(var(--ceu)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--rubi)), hsl(var(--sol)));
+    --gradient-success: linear-gradient(135deg, hsl(var(--folha)), hsl(var(--ceu)));
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 210 85% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 210 85% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 210 85% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 190 85% 55%;
+    --primary-foreground: 210 85% 10%;
+
+    --secondary: 210 85% 20%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 210 85% 15%;
+    --muted-foreground: 210 25% 65%;
+
+    --accent: 85 50% 50%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 340 80% 55%;
+    --destructive-foreground: 0 0% 98%;
+
+    --success: 50 100% 50%;
+    --success-foreground: 210 85% 10%;
+
+    --border: 210 85% 15%;
+    --input: 210 85% 15%;
+    --ring: 190 85% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/50 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary;
+  }
+}
+
+/* Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
