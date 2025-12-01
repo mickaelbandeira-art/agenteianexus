@@ -1,5 +1,8 @@
 import { useState } from "react";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
 import { Header } from "@/components/Header";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -8,6 +11,7 @@ import { Video, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Footer } from "@/components/Footer";
 import { AgentCard } from "@/components/AgentCard";
+<<<<<<< HEAD
 import {
   GraduationCap,
   BookOpen,
@@ -16,20 +20,36 @@ import {
   UserCog,
   Theater,
   Bot
+=======
+import { 
+  GraduationCap, 
+  BookOpen, 
+  Code, 
+  TrendingUp, 
+  UserCog, 
+  Theater,
+  Bot 
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const Agentes = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
   const { hasRole } = useAuth();
   const { toast } = useToast();
   const [recordingModalOpen, setRecordingModalOpen] = useState(false);
 
+<<<<<<< HEAD
   const handleAgentClick = (agentTitle: string) => {
     // Navegar para a página Index (chat) com o agente selecionado
     navigate('/', { state: { selectedAgent: agentTitle } });
   };
 
+=======
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
   const handleUploadVideo = () => {
     toast({
       title: "Funcionalidade em desenvolvimento",
@@ -40,7 +60,11 @@ const Agentes = () => {
   const agents = [
     {
       id: 1,
+<<<<<<< HEAD
       title: "Orquestrador",
+=======
+      title: "Nexus Orquestrador",
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
       description: "Coordena todos os agentes e roteia suas solicitações",
       icon: Bot,
       color: "cobalto" as const,
@@ -99,7 +123,11 @@ const Agentes = () => {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
@@ -107,7 +135,11 @@ const Agentes = () => {
               Ecossistema de Multiagentes
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+<<<<<<< HEAD
               Sistema inteligente com 7 agentes especializados trabalhando em conjunto
+=======
+              Sistema inteligente com 7 agentes especializados trabalhando em conjunto 
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
               para oferecer suporte completo aos treinamentos da AeC
             </p>
           </div>
@@ -119,7 +151,11 @@ const Agentes = () => {
                 <div>
                   <h3 className="text-xl font-bold mb-2">Gravação de Aula para Avaliação</h3>
                   <p className="text-muted-foreground">
+<<<<<<< HEAD
                     Grave suas aulas e receba feedback automatizado da IA sobre didática,
+=======
+                    Grave suas aulas e receba feedback automatizado da IA sobre didática, 
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                     clareza e engajamento.
                   </p>
                 </div>
@@ -170,8 +206,13 @@ const Agentes = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {agents.map((agent, index) => (
+<<<<<<< HEAD
               <div
                 key={agent.id}
+=======
+              <div 
+                key={agent.id} 
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                 className="animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -180,7 +221,10 @@ const Agentes = () => {
                   description={agent.description}
                   icon={agent.icon}
                   color={agent.color}
+<<<<<<< HEAD
                   onClick={() => handleAgentClick(agent.title)}
+=======
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                 />
                 <p className="mt-2 text-xs text-muted-foreground px-2">
                   {agent.details}
@@ -198,7 +242,11 @@ const Agentes = () => {
               </li>
               <li className="flex gap-2">
                 <span className="font-bold">2.</span>
+<<<<<<< HEAD
                 <span>O sistema identifica seu perfil e a natureza da solicitação</span>
+=======
+                <span>O Nexus identifica seu perfil e a natureza da solicitação</span>
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
               </li>
               <li className="flex gap-2">
                 <span className="font-bold">3.</span>

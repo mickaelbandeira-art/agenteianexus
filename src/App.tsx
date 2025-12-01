@@ -5,12 +5,16 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+<<<<<<< HEAD
 import Hub from "./pages/Hub";
 import ClientPortal from "./pages/ClientPortal";
 import Trainings from "./pages/Trainings";
 import ClientChat from "./pages/ClientChat";
 import Leaderboard from "./pages/Leaderboard";
 import Progress from "./pages/Progress";
+=======
+import Index from "./pages/Index";
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
 import Agentes from "./pages/Agentes";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
@@ -29,6 +33,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/auth" element={<Auth />} />
+<<<<<<< HEAD
 
             {/* Hub Principal */}
             <Route path="/" element={<ProtectedRoute><Hub /></ProtectedRoute>} />
@@ -48,6 +53,13 @@ const App = () => (
             <Route path="/gestor" element={<ProtectedRoute requiredRole="gestor"><Gestor /></ProtectedRoute>} />
             <Route path="/instrutor" element={<ProtectedRoute requiredRole="instrutor"><Instrutor /></ProtectedRoute>} />
 
+=======
+            <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+            <Route path="/agentes" element={<ProtectedRoute><Agentes /></ProtectedRoute>} />
+            <Route path="/admin" element={<ProtectedRoute requiredRole="admin"><Admin /></ProtectedRoute>} />
+            <Route path="/gestor" element={<ProtectedRoute requiredRole="gestor"><Gestor /></ProtectedRoute>} />
+            <Route path="/instrutor" element={<ProtectedRoute requiredRole="instrutor"><Instrutor /></ProtectedRoute>} />
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

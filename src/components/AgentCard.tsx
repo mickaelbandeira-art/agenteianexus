@@ -6,10 +6,16 @@ interface AgentCardProps {
   description: string;
   icon: LucideIcon;
   color: "folha" | "ceu" | "rubi" | "sol" | "cobalto" | "secondary";
+<<<<<<< HEAD
   onClick?: () => void;
 }
 
 export const AgentCard = ({ title, description, icon: Icon, color, onClick }: AgentCardProps) => {
+=======
+}
+
+export const AgentCard = ({ title, description, icon: Icon, color }: AgentCardProps) => {
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
   const colorClasses = {
     folha: "bg-folha/10 border-folha/30 text-folha",
     ceu: "bg-ceu/10 border-ceu/30 text-ceu",
@@ -20,10 +26,14 @@ export const AgentCard = ({ title, description, icon: Icon, color, onClick }: Ag
   };
 
   return (
+<<<<<<< HEAD
     <Card
       className={`${colorClasses[color]} border-2 p-4 hover:scale-105 transition-transform duration-300 cursor-pointer`}
       onClick={onClick}
     >
+=======
+    <Card className={`${colorClasses[color]} border-2 p-4 hover:scale-105 transition-transform duration-300`}>
+>>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
       <div className="flex items-start gap-3">
         <div className="p-2 bg-background/50 rounded-lg">
           <Icon className="h-5 w-5" />
