@@ -29,37 +29,22 @@ const Auth = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const success = await login(loginData.email, loginData.password);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
     if (success) {
       toast({ title: "Login realizado com sucesso!" });
       navigate("/");
     } else {
-<<<<<<< HEAD
       toast({
         title: "Erro no login",
         description: "Email ou senha incorretos",
         variant: "destructive"
-=======
-      toast({ 
-        title: "Erro no login", 
-        description: "Email ou senha incorretos",
-        variant: "destructive" 
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
       });
     }
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
     const data = {
       nomeCompleto: registerData.nomeCompleto,
       email: registerData.email,
@@ -69,26 +54,15 @@ const Auth = () => {
     };
 
     const success = await register(data);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
     if (success) {
       toast({ title: "Cadastro realizado com sucesso!" });
       navigate("/");
     } else {
-<<<<<<< HEAD
       toast({
         title: "Erro no cadastro",
         description: "Email já cadastrado ou dados inválidos",
         variant: "destructive"
-=======
-      toast({ 
-        title: "Erro no cadastro", 
-        description: "Email já cadastrado ou dados inválidos",
-        variant: "destructive" 
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
       });
     }
   };
@@ -96,39 +70,23 @@ const Auth = () => {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
-<<<<<<< HEAD
 
       <main className="flex-1 container mx-auto px-4 py-8 flex items-center justify-center">
         <Card className="w-full max-w-2xl">
           <CardHeader>
             <CardTitle className="text-2xl text-center">TREINAMENTO</CardTitle>
-=======
-      
-      <main className="flex-1 container mx-auto px-4 py-8 flex items-center justify-center">
-        <Card className="w-full max-w-2xl">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">NEXUS TREINAMENTO</CardTitle>
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
             <CardDescription className="text-center">
               Sistema de Treinamento AeC
             </CardDescription>
           </CardHeader>
-<<<<<<< HEAD
 
-=======
-          
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
           <CardContent>
             <Tabs defaultValue="login" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="login">Login</TabsTrigger>
                 <TabsTrigger value="register">Cadastro</TabsTrigger>
               </TabsList>
-<<<<<<< HEAD
 
-=======
-              
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
               <TabsContent value="login">
                 <form onSubmit={handleLogin} className="space-y-4 mt-4">
                   <div className="space-y-2">
@@ -141,11 +99,7 @@ const Auth = () => {
                       onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
                     />
                   </div>
-<<<<<<< HEAD
 
-=======
-                  
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                   <div className="space-y-2">
                     <Label htmlFor="login-password">Senha</Label>
                     <Input
@@ -156,7 +110,6 @@ const Auth = () => {
                       onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                     />
                   </div>
-<<<<<<< HEAD
 
                   <Button type="submit" className="w-full">Entrar</Button>
                 </form>
@@ -166,17 +119,6 @@ const Auth = () => {
                 <div className="space-y-4 mt-4">
                   <div className="grid grid-cols-2 gap-4">
                     <Card
-=======
-                  
-                  <Button type="submit" className="w-full">Entrar</Button>
-                </form>
-              </TabsContent>
-              
-              <TabsContent value="register">
-                <div className="space-y-4 mt-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <Card 
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                       className={`cursor-pointer transition-all ${registerType === 'veterano' ? 'ring-2 ring-primary' : ''}`}
                       onClick={() => setRegisterType('veterano')}
                     >
@@ -186,13 +128,8 @@ const Auth = () => {
                         <p className="text-sm text-muted-foreground">Com matrícula</p>
                       </CardContent>
                     </Card>
-<<<<<<< HEAD
 
                     <Card
-=======
-                    
-                    <Card 
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                       className={`cursor-pointer transition-all ${registerType === 'novato' ? 'ring-2 ring-primary' : ''}`}
                       onClick={() => setRegisterType('novato')}
                     >
@@ -203,11 +140,7 @@ const Auth = () => {
                       </CardContent>
                     </Card>
                   </div>
-<<<<<<< HEAD
 
-=======
-                  
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                   <form onSubmit={handleRegister} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="register-name">Nome Completo</Label>
@@ -218,11 +151,7 @@ const Auth = () => {
                         onChange={(e) => setRegisterData({ ...registerData, nomeCompleto: e.target.value })}
                       />
                     </div>
-<<<<<<< HEAD
 
-=======
-                    
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                     {registerType === 'veterano' ? (
                       <div className="space-y-2">
                         <Label htmlFor="register-matricula">Matrícula</Label>
@@ -245,11 +174,7 @@ const Auth = () => {
                         />
                       </div>
                     )}
-<<<<<<< HEAD
 
-=======
-                    
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                     <div className="space-y-2">
                       <Label htmlFor="register-email">Email</Label>
                       <Input
@@ -260,11 +185,7 @@ const Auth = () => {
                         onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
                       />
                     </div>
-<<<<<<< HEAD
 
-=======
-                    
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                     <div className="space-y-2">
                       <Label htmlFor="register-password">Senha</Label>
                       <Input
@@ -275,11 +196,7 @@ const Auth = () => {
                         onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
                       />
                     </div>
-<<<<<<< HEAD
 
-=======
-                    
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
                     <Button type="submit" className="w-full">
                       Cadastrar como {registerType === 'veterano' ? 'Veterano' : 'Novato'}
                     </Button>

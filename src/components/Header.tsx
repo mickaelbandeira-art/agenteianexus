@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Bot, Menu, Keyboard, UserSearch, Shield, LogOut, MessageSquare } from "lucide-react";
-=======
-import { Bot, Menu, Keyboard, UserSearch, Shield, LogOut } from "lucide-react";
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import aecLogo from "@/assets/aec-logo.png";
@@ -24,17 +20,10 @@ export const Header = () => {
           <img src={aecLogo} alt="AeC Logo" className="h-10 w-auto" />
           <div className="hidden lg:flex items-center gap-2">
             <Bot className="h-5 w-5 text-primary" />
-<<<<<<< HEAD
             <span className="font-semibold text-foreground">TREINAMENTO</span>
           </div>
         </Link>
 
-=======
-            <span className="font-semibold text-foreground">NEXUS TREINAMENTO</span>
-          </div>
-        </Link>
-        
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
         <nav className="hidden md:flex items-center gap-2 flex-1 justify-center">
           <Button variant="ghost" size="sm" asChild>
             <Link to="/">Início</Link>
@@ -75,7 +64,6 @@ export const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
-<<<<<<< HEAD
           {isAuthenticated && (
             <Button variant="default" size="sm" asChild>
               <Link to="/agentes">
@@ -84,8 +72,6 @@ export const Header = () => {
               </Link>
             </Button>
           )}
-=======
->>>>>>> b60fab566c50cbfadeb9ee28375dadcc4fd784cb
           {isAuthenticated ? (
             <>
               <span className="text-sm text-muted-foreground">{user?.nomeCompleto}</span>
