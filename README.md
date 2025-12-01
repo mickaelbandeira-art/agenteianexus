@@ -2,6 +2,8 @@
 
 Plataforma de treinamento com IA contextual para equipes de alta performance.
 
+> Última atualização: 01/12/2025 - Deploy Trigger
+
 ## 🚀 Deploy
 
 Este projeto está configurado para deploy automático na Vercel.
