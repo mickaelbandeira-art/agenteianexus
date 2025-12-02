@@ -108,7 +108,7 @@ export const HeroSection = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.8 }}
-                            className="absolute bottom-20 left-[35%] transform -translate-x-1/2 lg:bottom-24 lg:left-[35%]"
+                            className="absolute bottom-32 left-1/2 transform -translate-x-1/2 sm:bottom-36 lg:bottom-40"
                         >
                             <button className="group relative px-8 py-4 bg-gradient-to-r from-primary to-accent text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                                 <span className="relative z-10 flex items-center gap-2">
