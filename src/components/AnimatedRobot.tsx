@@ -7,7 +7,7 @@ export const AnimatedRobot = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full h-full min-h-[550px] md:min-h-[600px]"
+            className="relative w-full h-full min-h-[700px] md:min-h-[600px]"
         >
             <motion.div
                 animate={{
@@ -22,7 +22,7 @@ export const AnimatedRobot = () => {
             >
                 <SplineScene
                     scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                    className="w-full h-full scale-130 md:scale-125"
+                    className="w-full h-full scale-[1.6] md:scale-125"
                 />
             </motion.div>
         </motion.div>
