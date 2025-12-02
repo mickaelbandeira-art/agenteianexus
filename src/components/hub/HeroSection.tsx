@@ -34,14 +34,14 @@ export const HeroSection = () => {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 container mx-auto px-4">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative z-10 container mx-auto px-4 max-w-7xl">
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center">
                     {/* Text Content */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="space-y-6 text-center lg:text-left"
+                        className="space-y-6 text-left lg:col-span-3"
                     >
                         {/* Main heading */}
                         <h1 className="text-5xl md:text-7xl font-bold">
@@ -55,7 +55,7 @@ export const HeroSection = () => {
                         </h1>
 
                         {/* Description */}
-                        <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto lg:mx-0">
+                        <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl">
                             Plataforma unificada de treinamento com IA integrada para múltiplos clientes.
                             Aprenda, evolua e conquiste com tecnologia de ponta.
                         </p>
@@ -65,7 +65,7 @@ export const HeroSection = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="flex flex-wrap justify-center lg:justify-start gap-8 pt-4"
+                            className="flex flex-wrap justify-start gap-6 pt-4"
                         >
                             <div className="flex items-center gap-3 px-6 py-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border">
                                 <div className="p-2 rounded-full bg-primary/10">
@@ -100,7 +100,7 @@ export const HeroSection = () => {
                     </motion.div>
 
                     {/* Robot */}
-                    <div className="relative flex justify-center lg:justify-end">
+                    <div className="relative flex justify-center lg:justify-end lg:col-span-2">
                         <AnimatedRobot />
 
                         {/* CTA Button positioned at robot's legs */}
@@ -108,12 +108,12 @@ export const HeroSection = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.8 }}
-                            className="absolute bottom-32 left-1/2 transform -translate-x-1/2 sm:bottom-36 lg:bottom-40"
+                            className="absolute bottom-28 left-1/2 transform -translate-x-1/2 sm:bottom-32 lg:bottom-36 xl:bottom-40"
                         >
-                            <button className="group relative px-8 py-4 bg-gradient-to-r from-primary to-accent text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                                <span className="relative z-10 flex items-center gap-2">
+                            <button className="group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-primary to-accent text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                                <span className="relative z-10 flex items-center gap-2 text-sm sm:text-base">
                                     Agente IA AeC
-                                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                     </svg>
                                 </span>
