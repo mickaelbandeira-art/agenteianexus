@@ -1,5 +1,6 @@
 import { Bot, Menu, Keyboard, UserSearch, Shield, LogOut, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link, useNavigate } from "react-router-dom";
 import aecLogo from "@/assets/aec-logo.png";
 import { useAuth } from "@/contexts/AuthContext";
@@ -87,9 +88,59 @@ export const Header = () => {
           )}
         </div>
 
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu className="h-5 w-5" />
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="md:hidden">
+              <Menu className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[240px] sm:w-[300px]">
+            <nav className="flex flex-col gap-4 mt-8">
+              <Link to="/" className="flex items-center gap-2 text-lg font-semibold">
+                <Bot className="h-5 w-5 text-primary" />
+                TREINAMENTO
+              </Link>
+              <div className="flex flex-col gap-2">
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/">Início</Link>
+                </Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/agentes">Agentes</Link>
+                </Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <a href="https://aec-type-boost.lovable.app/" target="_blank" rel="noopener noreferrer">
+                    <Keyboard className="mr-2 h-4 w-4" />
+                    Teste Digitação
+                  </a>
+                </Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <a href="https://mapeamentoperfilaec.lovable.app/" target="_blank" rel="noopener noreferrer">
+                    <UserSearch className="mr-2 h-4 w-4" />
+                    Mapeamento
+                  </a>
+                </Button>
+                {hasRole('admin') && (
+                  <Button variant="ghost" className="justify-start" asChild>
+                    <Link to="/admin">
+                      <Shield className="mr-2 h-4 w-4" />
+                      Admin
+                    </Link>
+                  </Button>
+                )}
+                {hasRole('gestor') && (
+                  <Button variant="ghost" className="justify-start" asChild>
+                    <Link to="/gestor">Dashboard Gestor</Link>
+                  </Button>
+                )}
+                {hasRole('instrutor') && (
+                  <Button variant="ghost" className="justify-start" asChild>
+                    <Link to="/instrutor">Dashboard Instrutor</Link>
+                  </Button>
+                )}
+              </div>
+            </nav>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );

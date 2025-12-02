@@ -117,7 +117,7 @@ const Auth = () => {
 
               <TabsContent value="register">
                 <div className="space-y-4 mt-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Card
                       className={`cursor-pointer transition-all ${registerType === 'veterano' ? 'ring-2 ring-primary' : ''}`}
                       onClick={() => setRegisterType('veterano')}
