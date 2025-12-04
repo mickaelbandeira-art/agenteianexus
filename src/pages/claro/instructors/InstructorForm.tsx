@@ -56,7 +56,7 @@ const InstructorForm = () => {
                 description: 'Não foi possível carregar os dados do instrutor.',
                 variant: 'destructive',
             });
-            navigate('/claro/instructors');
+            navigate('/clients/claro/instructors');
         } finally {
             setLoading(false);
         }
@@ -89,7 +89,7 @@ const InstructorForm = () => {
                     description: 'O instrutor foi criado com sucesso.',
                 });
             }
-            navigate('/claro/instructors');
+            navigate('/clients/claro/instructors');
         } catch (error: any) {
             toast({
                 title: 'Erro ao salvar',
@@ -109,7 +109,7 @@ const InstructorForm = () => {
                     <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => navigate('/claro/instructors')}
+                        onClick={() => navigate('/clients/claro/instructors')}
                     >
                         <ArrowLeft className="w-5 h-5" />
                     </Button>
@@ -204,7 +204,7 @@ const InstructorForm = () => {
                                 <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={() => navigate('/claro/instructors')}
+                                    onClick={() => navigate('/clients/claro/instructors')}
                                     disabled={loading}
                                 >
                                     Cancelar

@@ -53,10 +53,10 @@ const App = () => (
             <Route path="/instrutor" element={<ProtectedRoute requiredRole="instrutor"><Instrutor /></ProtectedRoute>} />
 
             {/* Portal Claro Routes */}
-            <Route path="/claro" element={<ProtectedRoute requiredRole="instrutor"><ClaroPortal /></ProtectedRoute>} />
-            <Route path="/claro/instructors" element={<ProtectedRoute requiredRole="admin"><InstructorList /></ProtectedRoute>} />
-            <Route path="/claro/instructors/:id" element={<ProtectedRoute requiredRole="admin"><InstructorForm /></ProtectedRoute>} />
-            <Route path="/claro/segments" element={<ProtectedRoute requiredRole="admin"><SegmentList /></ProtectedRoute>} />
+            <Route path="/clients/claro" element={<ProtectedRoute requiredRole="instrutor"><ClaroPortal /></ProtectedRoute>} />
+            <Route path="/clients/claro/instructors" element={<ProtectedRoute requiredRole="admin"><InstructorList /></ProtectedRoute>} />
+            <Route path="/clients/claro/instructors/:id" element={<ProtectedRoute requiredRole="admin"><InstructorForm /></ProtectedRoute>} />
+            <Route path="/clients/claro/segments" element={<ProtectedRoute requiredRole="admin"><SegmentList /></ProtectedRoute>} />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

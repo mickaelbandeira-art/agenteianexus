@@ -77,7 +77,7 @@ const SegmentList = () => {
                         <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => navigate('/claro')}
+                            onClick={() => navigate('/clients/claro')}
                         >
                             <ArrowLeft className="w-5 h-5" />
                         </Button>
@@ -90,7 +90,7 @@ const SegmentList = () => {
                             </p>
                         </div>
                     </div>
-                    <Button onClick={() => navigate('/claro/segments/new')}>
+                    <Button onClick={() => navigate('/clients/claro/segments/new')}>
                         <Plus className="w-4 h-4 mr-2" />
                         Novo Segmento
                     </Button>
@@ -164,7 +164,7 @@ const SegmentList = () => {
                                                     <Button
                                                         variant="ghost"
                                                         size="icon"
-                                                        onClick={() => navigate(`/claro/segments/${segment.id}`)}
+                                                        onClick={() => navigate(`/clients/claro/segments/${segment.id}`)}
                                                     >
                                                         <Edit className="w-4 h-4" />
                                                     </Button>

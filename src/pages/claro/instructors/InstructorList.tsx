@@ -92,7 +92,7 @@ const InstructorList = () => {
                         <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => navigate('/claro')}
+                            onClick={() => navigate('/clients/claro')}
                         >
                             <ArrowLeft className="w-5 h-5" />
                         </Button>
@@ -105,7 +105,7 @@ const InstructorList = () => {
                             </p>
                         </div>
                     </div>
-                    <Button onClick={() => navigate('/claro/instructors/new')}>
+                    <Button onClick={() => navigate('/clients/claro/instructors/new')}>
                         <Plus className="w-4 h-4 mr-2" />
                         Novo Instrutor
                     </Button>
@@ -204,7 +204,7 @@ const InstructorList = () => {
                                                     <Button
                                                         variant="ghost"
                                                         size="icon"
-                                                        onClick={() => navigate(`/claro/instructors/${instructor.id}`)}
+                                                        onClick={() => navigate(`/clients/claro/instructors/${instructor.id}`)}
                                                     >
                                                         <Edit className="w-4 h-4" />
                                                     </Button>
