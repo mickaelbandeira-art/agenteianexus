@@ -23,6 +23,8 @@ import InstructorForm from "./pages/claro/instructors/InstructorForm";
 import SegmentList from "./pages/claro/segments/SegmentList";
 import ClassList from "./pages/claro/classes/ClassList";
 import ClassForm from "./pages/claro/classes/ClassForm";
+import RoomList from "./pages/claro/rooms/RoomList";
+import RoomForm from "./pages/claro/rooms/RoomForm";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,8 @@ const App = () => (
             <Route path="/clients/claro/segments" element={<ProtectedRoute requiredRole="admin"><SegmentList /></ProtectedRoute>} />
             <Route path="/clients/claro/classes" element={<ProtectedRoute requiredRole="instrutor"><ClassList /></ProtectedRoute>} />
             <Route path="/clients/claro/classes/:id" element={<ProtectedRoute requiredRole="instrutor"><ClassForm /></ProtectedRoute>} />
+            <Route path="/clients/claro/rooms" element={<ProtectedRoute requiredRole="admin"><RoomList /></ProtectedRoute>} />
+            <Route path="/clients/claro/rooms/:id" element={<ProtectedRoute requiredRole="admin"><RoomForm /></ProtectedRoute>} />
 
             {/* Subportais de Clientes - Rota genérica */}
             <Route path="/clients/:clientSlug" element={<ProtectedRoute><ClientPortal /></ProtectedRoute>} />
