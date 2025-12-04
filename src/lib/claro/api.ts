@@ -583,6 +583,43 @@ export const createManualHistory = async (input: ManualHistoryInput) => {
   return data as unknown as ClaroManualHistory;
 };
 
+// Alias for createManualHistory to match import in ManualForm
+export const addManualHistory = createManualHistory;
+
+/**
+ * Get manual with its complete history
+ */
+export const getManualWithHistory = async (id: string) => {
+  const manual = await getManualById(id);
+  const history = await getManualHistory(id);
+
+  return {
+    ...manual,
+    history
+  } as ClaroManualWithHistory;
+};
+
+/**
+ * Upload manual file to Supabase Storage
+ */
+export const uploadManualFile = async (file: File, filePath: string): Promise<string> => {
+  const { data, error } = await supabase.storage
+    .from('claro-manuals')
+    .upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: false
+    });
+
+  if (error) throw error;
+
+  // Get public URL
+  const { data: { publicUrl } } = supabase.storage
+    .from('claro-manuals')
+    .getPublicUrl(filePath);
+
+  return publicUrl;
+};
+
 // =====================================================
 // DASHBOARD STATISTICS
 // =====================================================

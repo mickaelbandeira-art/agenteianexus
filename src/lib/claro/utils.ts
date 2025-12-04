@@ -30,6 +30,48 @@ export const calculateAccessDeadline = (startDate: string): string => {
 };
 
 /**
+ * Calculate all important dates for a training class
+ */
+export const calculateTrainingDates = (startDate: string, trainingDays: number) => {
+    const endDate = calculateEndDate(startDate, trainingDays);
+
+    // Assisted service starts 1 day after training ends
+    const assistedServiceDate = calculateEndDate(endDate, 1);
+
+    // Medical exam should be scheduled 2 days before training starts
+    const start = new Date(startDate);
+    const medicalExam = new Date(start);
+    let daysSubtracted = 0;
+    while (daysSubtracted < 2) {
+        medicalExam.setDate(medicalExam.getDate() - 1);
+        // Skip weekends
+        if (medicalExam.getDay() !== 0 && medicalExam.getDay() !== 6) {
+            daysSubtracted++;
+        }
+    }
+    const medicalExamDate = medicalExam.toISOString().split('T')[0];
+
+    // Contract signature should be 1 day before training starts
+    const contractSignature = new Date(start);
+    let contractDaysSubtracted = 0;
+    while (contractDaysSubtracted < 1) {
+        contractSignature.setDate(contractSignature.getDate() - 1);
+        // Skip weekends
+        if (contractSignature.getDay() !== 0 && contractSignature.getDay() !== 6) {
+            contractDaysSubtracted++;
+        }
+    }
+    const contractSignatureDate = contractSignature.toISOString().split('T')[0];
+
+    return {
+        endDate,
+        assistedServiceDate,
+        medicalExamDate,
+        contractSignatureDate
+    };
+};
+
+/**
  * Generate timeline events for a training class
  */
 export const generateClassTimeline = (
