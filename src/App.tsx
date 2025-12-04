@@ -37,7 +37,13 @@ const App = () => (
             {/* Hub Principal */}
             <Route path="/" element={<ProtectedRoute><Hub /></ProtectedRoute>} />
 
-            {/* Subportais de Clientes */}
+            {/* Portal Claro - Rota específica ANTES da rota genérica */}
+            <Route path="/clients/claro" element={<ProtectedRoute requiredRole="instrutor"><ClaroPortal /></ProtectedRoute>} />
+            <Route path="/clients/claro/instructors" element={<ProtectedRoute requiredRole="admin"><InstructorList /></ProtectedRoute>} />
+            <Route path="/clients/claro/instructors/:id" element={<ProtectedRoute requiredRole="admin"><InstructorForm /></ProtectedRoute>} />
+            <Route path="/clients/claro/segments" element={<ProtectedRoute requiredRole="admin"><SegmentList /></ProtectedRoute>} />
+
+            {/* Subportais de Clientes - Rota genérica */}
             <Route path="/clients/:clientSlug" element={<ProtectedRoute><ClientPortal /></ProtectedRoute>} />
             <Route path="/clients/:clientSlug/trainings" element={<ProtectedRoute><Trainings /></ProtectedRoute>} />
             <Route path="/clients/:clientSlug/chat" element={<ProtectedRoute><ClientChat /></ProtectedRoute>} />
@@ -51,12 +57,6 @@ const App = () => (
             <Route path="/admin" element={<ProtectedRoute requiredRole="admin"><Admin /></ProtectedRoute>} />
             <Route path="/gestor" element={<ProtectedRoute requiredRole="gestor"><Gestor /></ProtectedRoute>} />
             <Route path="/instrutor" element={<ProtectedRoute requiredRole="instrutor"><Instrutor /></ProtectedRoute>} />
-
-            {/* Portal Claro Routes */}
-            <Route path="/clients/claro" element={<ProtectedRoute requiredRole="instrutor"><ClaroPortal /></ProtectedRoute>} />
-            <Route path="/clients/claro/instructors" element={<ProtectedRoute requiredRole="admin"><InstructorList /></ProtectedRoute>} />
-            <Route path="/clients/claro/instructors/:id" element={<ProtectedRoute requiredRole="admin"><InstructorForm /></ProtectedRoute>} />
-            <Route path="/clients/claro/segments" element={<ProtectedRoute requiredRole="admin"><SegmentList /></ProtectedRoute>} />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
