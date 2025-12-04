@@ -152,6 +152,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const hasRole = (role: UserRole): boolean => {
+    if (user?.roles.includes('admin')) return true;
     return user?.roles.includes(role) || false;
   };
 
