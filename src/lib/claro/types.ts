@@ -14,8 +14,9 @@ export type ClassStatus = 'Planejada' | 'Em Andamento' | 'Concluída' | 'Cancela
 export type TraineeStatus = 'Ativo' | 'Desistente' | 'Aprovado' | 'Reprovado';
 export type LocationType = 'AeC' | 'Externo';
 export type RoomStatus = 'Disponível' | 'Em Uso' | 'Manutenção';
-export type AccessType = 'Claro' | 'Sistemas Internos' | 'VPN' | 'Outros';
-export type AccessStatus = 'Solicitado' | 'Em Andamento' | 'Concluído' | 'Atrasado';
+export type AccessType = 'Claro' | 'Sistemas Internos' | 'VPN' | 'Outros' | 'Rede' | 'Email' | 'Sistema' | 'Crachá';
+export type AccessStatus = 'Solicitado' | 'Em Andamento' | 'Concluído' | 'Atrasado' | 'Pendente' | 'Cancelado';
+export type AccessRequestStatus = AccessStatus;
 export type ManualType = 'Operacional' | 'Conduta' | 'Sistemas' | 'Outros';
 
 // =====================================================
@@ -120,6 +121,11 @@ export interface ClaroAccessRequest {
     deadline_date: string;
     status: AccessStatus;
     notes: string | null;
+    system_name?: string;
+    protocol_number?: string;
+    login_created?: string;
+    initial_password?: string;
+    observation?: string;
     created_at: string;
     updated_at: string;
 }
@@ -248,6 +254,11 @@ export interface AccessRequestInput {
     deadline_date: string;
     status: AccessStatus;
     notes?: string;
+    system_name?: string;
+    protocol_number?: string;
+    login_created?: string;
+    initial_password?: string;
+    observation?: string;
 }
 
 export interface ManualInput {

@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      avaliacoes_finais: {
+        Row: {
+          aluno_id: string | null
+          aprovado: boolean | null
+          comentarios: string | null
+          created_at: string | null
+          id: string
+          nota: number | null
+          turma_id: string | null
+        }
+        Insert: {
+          aluno_id?: string | null
+          aprovado?: boolean | null
+          comentarios?: string | null
+          created_at?: string | null
+          id?: string
+          nota?: number | null
+          turma_id?: string | null
+        }
+        Update: {
+          aluno_id?: string | null
+          aprovado?: boolean | null
+          comentarios?: string | null
+          created_at?: string | null
+          id?: string
+          nota?: number | null
+          turma_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "avaliacoes_finais_aluno_id_fkey"
+            columns: ["aluno_id"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "avaliacoes_finais_turma_id_fkey"
+            columns: ["turma_id"]
+            isOneToOne: false
+            referencedRelation: "turmas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       avaliacoes_instrutor: {
         Row: {
           aula_duracao_segundos: number | null
@@ -94,10 +139,12 @@ export type Database = {
       chat_history: {
         Row: {
           agente_utilizado: string | null
+          client_id: string | null
           contexto: Json | null
           created_at: string | null
           id: string
           mensagem_usuario: string
+          rag_sources: Json | null
           resposta_nexus: string
           satisfacao_usuario: number | null
           tempo_resposta_ms: number | null
@@ -105,10 +152,12 @@ export type Database = {
         }
         Insert: {
           agente_utilizado?: string | null
+          client_id?: string | null
           contexto?: Json | null
           created_at?: string | null
           id?: string
           mensagem_usuario: string
+          rag_sources?: Json | null
           resposta_nexus: string
           satisfacao_usuario?: number | null
           tempo_resposta_ms?: number | null
@@ -116,10 +165,12 @@ export type Database = {
         }
         Update: {
           agente_utilizado?: string | null
+          client_id?: string | null
           contexto?: Json | null
           created_at?: string | null
           id?: string
           mensagem_usuario?: string
+          rag_sources?: Json | null
           resposta_nexus?: string
           satisfacao_usuario?: number | null
           tempo_resposta_ms?: number | null
@@ -127,10 +178,247 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "chat_history_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "chat_history_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      claro_instructors: {
+        Row: {
+          created_at: string | null
+          employment_type: string
+          full_name: string
+          id: string
+          matricula: string
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          employment_type: string
+          full_name: string
+          id?: string
+          matricula: string
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          employment_type?: string
+          full_name?: string
+          id?: string
+          matricula?: string
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      claro_segments: {
+        Row: {
+          cr_code: string
+          created_at: string | null
+          default_schedule: string
+          id: string
+          operation_type: string
+          segment_name: string
+          training_days: number
+          updated_at: string | null
+        }
+        Insert: {
+          cr_code: string
+          created_at?: string | null
+          default_schedule: string
+          id?: string
+          operation_type: string
+          segment_name: string
+          training_days: number
+          updated_at?: string | null
+        }
+        Update: {
+          cr_code?: string
+          created_at?: string | null
+          default_schedule?: string
+          id?: string
+          operation_type?: string
+          segment_name?: string
+          training_days?: number
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      claro_training_classes: {
+        Row: {
+          assisted_service_date: string | null
+          class_code: string
+          class_type: string
+          contract_signature_date: string | null
+          created_at: string | null
+          end_date: string | null
+          has_snack: boolean | null
+          id: string
+          instructor_id: string | null
+          medical_exam_date: string | null
+          period: string
+          segment_id: string | null
+          snack_value: number | null
+          start_date: string
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          assisted_service_date?: string | null
+          class_code: string
+          class_type: string
+          contract_signature_date?: string | null
+          created_at?: string | null
+          end_date?: string | null
+          has_snack?: boolean | null
+          id?: string
+          instructor_id?: string | null
+          medical_exam_date?: string | null
+          period: string
+          segment_id?: string | null
+          snack_value?: number | null
+          start_date: string
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          assisted_service_date?: string | null
+          class_code?: string
+          class_type?: string
+          contract_signature_date?: string | null
+          created_at?: string | null
+          end_date?: string | null
+          has_snack?: boolean | null
+          id?: string
+          instructor_id?: string | null
+          medical_exam_date?: string | null
+          period?: string
+          segment_id?: string | null
+          snack_value?: number | null
+          start_date?: string
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "claro_training_classes_instructor_id_fkey"
+            columns: ["instructor_id"]
+            isOneToOne: false
+            referencedRelation: "claro_instructors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "claro_training_classes_segment_id_fkey"
+            columns: ["segment_id"]
+            isOneToOne: false
+            referencedRelation: "claro_segments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clientes: {
+        Row: {
+          created_at: string | null
+          descricao: string | null
+          id: string
+          logo: string | null
+          nome: string
+        }
+        Insert: {
+          created_at?: string | null
+          descricao?: string | null
+          id?: string
+          logo?: string | null
+          nome: string
+        }
+        Update: {
+          created_at?: string | null
+          descricao?: string | null
+          id?: string
+          logo?: string | null
+          nome?: string
+        }
+        Relationships: []
+      }
+      clients: {
+        Row: {
+          ai_config: Json | null
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          logo_url: string | null
+          name: string
+          slug: string
+          theme_config: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          ai_config?: Json | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          logo_url?: string | null
+          name: string
+          slug: string
+          theme_config?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          ai_config?: Json | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          logo_url?: string | null
+          name?: string
+          slug?: string
+          theme_config?: Json | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      cursos_obrigatorios: {
+        Row: {
+          conteudo_url: string | null
+          created_at: string | null
+          descricao: string | null
+          id: string
+          segmento_id: string | null
+          titulo: string
+        }
+        Insert: {
+          conteudo_url?: string | null
+          created_at?: string | null
+          descricao?: string | null
+          id?: string
+          segmento_id?: string | null
+          titulo: string
+        }
+        Update: {
+          conteudo_url?: string | null
+          created_at?: string | null
+          descricao?: string | null
+          id?: string
+          segmento_id?: string | null
+          titulo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cursos_obrigatorios_segmento_id_fkey"
+            columns: ["segmento_id"]
+            isOneToOne: false
+            referencedRelation: "segmentos"
             referencedColumns: ["id"]
           },
         ]
@@ -197,6 +485,115 @@ export type Database = {
           },
         ]
       }
+      documents_embeddings: {
+        Row: {
+          chunk_index: number | null
+          chunk_text: string
+          client_id: string | null
+          created_at: string | null
+          document_name: string
+          document_type: string | null
+          embedding: string | null
+          id: string
+          metadata: Json | null
+          source_url: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          chunk_index?: number | null
+          chunk_text: string
+          client_id?: string | null
+          created_at?: string | null
+          document_name: string
+          document_type?: string | null
+          embedding?: string | null
+          id?: string
+          metadata?: Json | null
+          source_url?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          chunk_index?: number | null
+          chunk_text?: string
+          client_id?: string | null
+          created_at?: string | null
+          document_name?: string
+          document_type?: string | null
+          embedding?: string | null
+          id?: string
+          metadata?: Json | null
+          source_url?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_embeddings_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      hierarquia: {
+        Row: {
+          cargo: string
+          created_at: string | null
+          id: string
+          nivel: number
+        }
+        Insert: {
+          cargo: string
+          created_at?: string | null
+          id?: string
+          nivel: number
+        }
+        Update: {
+          cargo?: string
+          created_at?: string | null
+          id?: string
+          nivel?: number
+        }
+        Relationships: []
+      }
+      logs_ai: {
+        Row: {
+          acao: string | null
+          created_at: string | null
+          id: string
+          modelo: string | null
+          prompt: string | null
+          resposta: string | null
+          usuario_id: string | null
+        }
+        Insert: {
+          acao?: string | null
+          created_at?: string | null
+          id?: string
+          modelo?: string | null
+          prompt?: string | null
+          resposta?: string | null
+          usuario_id?: string | null
+        }
+        Update: {
+          acao?: string | null
+          created_at?: string | null
+          id?: string
+          modelo?: string | null
+          prompt?: string | null
+          resposta?: string | null
+          usuario_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "logs_ai_usuario_id_fkey"
+            columns: ["usuario_id"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       participants: {
         Row: {
           cargo: string
@@ -206,10 +603,13 @@ export type Database = {
           hierarchy_level: Database["public"]["Enums"]["hierarchy_level"]
           id: string
           is_active: boolean | null
+          leave_type: string | null
           manager: string | null
           name: string
           network_login: string | null
+          operation_origin: string | null
           registration: string
+          return_date: string | null
           supervisor: string | null
           updated_at: string | null
         }
@@ -221,10 +621,13 @@ export type Database = {
           hierarchy_level: Database["public"]["Enums"]["hierarchy_level"]
           id?: string
           is_active?: boolean | null
+          leave_type?: string | null
           manager?: string | null
           name: string
           network_login?: string | null
+          operation_origin?: string | null
           registration: string
+          return_date?: string | null
           supervisor?: string | null
           updated_at?: string | null
         }
@@ -236,50 +639,115 @@ export type Database = {
           hierarchy_level?: Database["public"]["Enums"]["hierarchy_level"]
           id?: string
           is_active?: boolean | null
+          leave_type?: string | null
           manager?: string | null
           name?: string
           network_login?: string | null
+          operation_origin?: string | null
           registration?: string
+          return_date?: string | null
           supervisor?: string | null
           updated_at?: string | null
         }
         Relationships: []
       }
+      presenca_diaria: {
+        Row: {
+          aluno_id: string | null
+          created_at: string | null
+          data: string
+          id: string
+          justificativa: string | null
+          presente: boolean | null
+          turma_id: string | null
+        }
+        Insert: {
+          aluno_id?: string | null
+          created_at?: string | null
+          data: string
+          id?: string
+          justificativa?: string | null
+          presente?: boolean | null
+          turma_id?: string | null
+        }
+        Update: {
+          aluno_id?: string | null
+          created_at?: string | null
+          data?: string
+          id?: string
+          justificativa?: string | null
+          presente?: boolean | null
+          turma_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "presenca_diaria_aluno_id_fkey"
+            columns: ["aluno_id"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "presenca_diaria_turma_id_fkey"
+            columns: ["turma_id"]
+            isOneToOne: false
+            referencedRelation: "turmas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
           cargo: string | null
+          client_id: string | null
           cpf: string | null
           created_at: string | null
           email: string
+          empresa: string | null
           full_name: string
           id: string
           matricula: string | null
+          role: string | null
           updated_at: string | null
         }
         Insert: {
           avatar_url?: string | null
           cargo?: string | null
+          client_id?: string | null
           cpf?: string | null
           created_at?: string | null
           email: string
+          empresa?: string | null
           full_name: string
           id: string
           matricula?: string | null
+          role?: string | null
           updated_at?: string | null
         }
         Update: {
           avatar_url?: string | null
           cargo?: string | null
+          client_id?: string | null
           cpf?: string | null
           created_at?: string | null
           email?: string
+          empresa?: string | null
           full_name?: string
           id?: string
           matricula?: string | null
+          role?: string | null
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       reciclagens: {
         Row: {
@@ -363,6 +831,59 @@ export type Database = {
           },
         ]
       }
+      salas: {
+        Row: {
+          capacidade: number | null
+          created_at: string | null
+          id: string
+          localizacao: string | null
+          nome: string
+        }
+        Insert: {
+          capacidade?: number | null
+          created_at?: string | null
+          id?: string
+          localizacao?: string | null
+          nome: string
+        }
+        Update: {
+          capacidade?: number | null
+          created_at?: string | null
+          id?: string
+          localizacao?: string | null
+          nome?: string
+        }
+        Relationships: []
+      }
+      segmentos: {
+        Row: {
+          cliente_id: string | null
+          created_at: string | null
+          id: string
+          nome: string
+        }
+        Insert: {
+          cliente_id?: string | null
+          created_at?: string | null
+          id?: string
+          nome: string
+        }
+        Update: {
+          cliente_id?: string | null
+          created_at?: string | null
+          id?: string
+          nome?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "segmentos_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       test_results: {
         Row: {
           answers: Json | null
@@ -422,6 +943,293 @@ export type Database = {
           },
         ]
       }
+      trainings: {
+        Row: {
+          category: string | null
+          client_id: string | null
+          content: string | null
+          content_type: string | null
+          created_at: string | null
+          description: string | null
+          difficulty: string | null
+          duration_minutes: number | null
+          id: string
+          is_published: boolean | null
+          order_index: number | null
+          pdf_url: string | null
+          quiz_data: Json | null
+          tags: string[] | null
+          title: string
+          updated_at: string | null
+          video_url: string | null
+        }
+        Insert: {
+          category?: string | null
+          client_id?: string | null
+          content?: string | null
+          content_type?: string | null
+          created_at?: string | null
+          description?: string | null
+          difficulty?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_published?: boolean | null
+          order_index?: number | null
+          pdf_url?: string | null
+          quiz_data?: Json | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string | null
+          video_url?: string | null
+        }
+        Update: {
+          category?: string | null
+          client_id?: string | null
+          content?: string | null
+          content_type?: string | null
+          created_at?: string | null
+          description?: string | null
+          difficulty?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_published?: boolean | null
+          order_index?: number | null
+          pdf_url?: string | null
+          quiz_data?: Json | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string | null
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trainings_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      turmas: {
+        Row: {
+          codigo: string
+          created_at: string | null
+          data_fim: string | null
+          data_inicio: string | null
+          id: string
+          instrutor_id: string | null
+          segmento_id: string | null
+          status: string | null
+        }
+        Insert: {
+          codigo: string
+          created_at?: string | null
+          data_fim?: string | null
+          data_inicio?: string | null
+          id?: string
+          instrutor_id?: string | null
+          segmento_id?: string | null
+          status?: string | null
+        }
+        Update: {
+          codigo?: string
+          created_at?: string | null
+          data_fim?: string | null
+          data_inicio?: string | null
+          id?: string
+          instrutor_id?: string | null
+          segmento_id?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "turmas_instrutor_id_fkey"
+            columns: ["instrutor_id"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "turmas_segmento_id_fkey"
+            columns: ["segmento_id"]
+            isOneToOne: false
+            referencedRelation: "segmentos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      typing_test_results: {
+        Row: {
+          accuracy: number
+          created_at: string
+          difficulty: string
+          duration_seconds: number
+          errors_count: number
+          id: string
+          test_type: string
+          user_id: string
+          wpm: number
+        }
+        Insert: {
+          accuracy: number
+          created_at?: string
+          difficulty: string
+          duration_seconds: number
+          errors_count: number
+          id?: string
+          test_type: string
+          user_id: string
+          wpm: number
+        }
+        Update: {
+          accuracy?: number
+          created_at?: string
+          difficulty?: string
+          duration_seconds?: number
+          errors_count?: number
+          id?: string
+          test_type?: string
+          user_id?: string
+          wpm?: number
+        }
+        Relationships: []
+      }
+      user_achievements: {
+        Row: {
+          achievements: Json | null
+          badges: Json | null
+          client_id: string | null
+          created_at: string | null
+          experience_points: number | null
+          id: string
+          last_activity_date: string | null
+          level: number | null
+          perfect_scores: number | null
+          rank_position: number | null
+          streak_days: number | null
+          total_points: number | null
+          trainings_completed: number | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          achievements?: Json | null
+          badges?: Json | null
+          client_id?: string | null
+          created_at?: string | null
+          experience_points?: number | null
+          id?: string
+          last_activity_date?: string | null
+          level?: number | null
+          perfect_scores?: number | null
+          rank_position?: number | null
+          streak_days?: number | null
+          total_points?: number | null
+          trainings_completed?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          achievements?: Json | null
+          badges?: Json | null
+          client_id?: string | null
+          created_at?: string | null
+          experience_points?: number | null
+          id?: string
+          last_activity_date?: string | null
+          level?: number | null
+          perfect_scores?: number | null
+          rank_position?: number | null
+          streak_days?: number | null
+          total_points?: number | null
+          trainings_completed?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_achievements_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_achievements_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_progress: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          last_accessed_at: string | null
+          progress_percentage: number | null
+          quiz_answers: Json | null
+          quiz_attempts: number | null
+          quiz_score: number | null
+          started_at: string | null
+          status: string | null
+          time_spent_minutes: number | null
+          training_id: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          last_accessed_at?: string | null
+          progress_percentage?: number | null
+          quiz_answers?: Json | null
+          quiz_attempts?: number | null
+          quiz_score?: number | null
+          started_at?: string | null
+          status?: string | null
+          time_spent_minutes?: number | null
+          training_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          last_accessed_at?: string | null
+          progress_percentage?: number | null
+          quiz_answers?: Json | null
+          quiz_attempts?: number | null
+          quiz_score?: number | null
+          started_at?: string | null
+          status?: string | null
+          time_spent_minutes?: number | null
+          training_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_progress_training_id_fkey"
+            columns: ["training_id"]
+            isOneToOne: false
+            referencedRelation: "trainings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_progress_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string | null
@@ -443,6 +1251,54 @@ export type Database = {
         }
         Relationships: []
       }
+      usuarios: {
+        Row: {
+          ativo: boolean | null
+          cliente_id: string | null
+          created_at: string | null
+          email: string
+          hierarquia_id: string | null
+          id: string
+          nome: string
+          senha_hash: string | null
+        }
+        Insert: {
+          ativo?: boolean | null
+          cliente_id?: string | null
+          created_at?: string | null
+          email: string
+          hierarquia_id?: string | null
+          id?: string
+          nome: string
+          senha_hash?: string | null
+        }
+        Update: {
+          ativo?: boolean | null
+          cliente_id?: string | null
+          created_at?: string | null
+          email?: string
+          hierarquia_id?: string | null
+          id?: string
+          nome?: string
+          senha_hash?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "usuarios_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "usuarios_hierarquia_id_fkey"
+            columns: ["hierarquia_id"]
+            isOneToOne: false
+            referencedRelation: "hierarquia"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       dashboard_stats: {
@@ -462,6 +1318,22 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      match_documents: {
+        Args: {
+          filter_client_id: string
+          match_count: number
+          match_threshold: number
+          query_embedding: string
+        }
+        Returns: {
+          chunk_index: number
+          chunk_text: string
+          document_name: string
+          id: string
+          metadata: Json
+          similarity: number
+        }[]
       }
       search_participants: {
         Args: {
@@ -485,6 +1357,7 @@ export type Database = {
           score_s: number
         }[]
       }
+      update_rankings: { Args: never; Returns: undefined }
     }
     Enums: {
       app_role:
