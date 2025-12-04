@@ -27,6 +27,9 @@ import RoomList from "./pages/claro/rooms/RoomList";
 import RoomForm from "./pages/claro/rooms/RoomForm";
 import AccessRequestList from "./pages/claro/access-requests/AccessRequestList";
 import AccessRequestForm from "./pages/claro/access-requests/AccessRequestForm";
+import ManualList from "./pages/claro/manuals/ManualList";
+import ManualForm from "./pages/claro/manuals/ManualForm";
+import ManualHistory from "./pages/claro/manuals/ManualHistory";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +57,9 @@ const App = () => (
             <Route path="/clients/claro/rooms/:id" element={<ProtectedRoute requiredRole="admin"><RoomForm /></ProtectedRoute>} />
             <Route path="/clients/claro/access-requests" element={<ProtectedRoute requiredRole="gestor"><AccessRequestList /></ProtectedRoute>} />
             <Route path="/clients/claro/access-requests/:id" element={<ProtectedRoute requiredRole="gestor"><AccessRequestForm /></ProtectedRoute>} />
+            <Route path="/clients/claro/manuals" element={<ProtectedRoute requiredRole="instrutor"><ManualList /></ProtectedRoute>} />
+            <Route path="/clients/claro/manuals/:id" element={<ProtectedRoute requiredRole="instrutor"><ManualForm /></ProtectedRoute>} />
+            <Route path="/clients/claro/manuals/:id/history" element={<ProtectedRoute requiredRole="instrutor"><ManualHistory /></ProtectedRoute>} />
 
             {/* Subportais de Clientes - Rota genérica */}
             <Route path="/clients/:clientSlug" element={<ProtectedRoute><ClientPortal /></ProtectedRoute>} />
