@@ -17,6 +17,10 @@ import Admin from "./pages/Admin";
 import Gestor from "./pages/Gestor";
 import Instrutor from "./pages/Instrutor";
 import NotFound from "./pages/NotFound";
+import ClaroPortal from "./pages/claro/ClaroPortal";
+import InstructorList from "./pages/claro/instructors/InstructorList";
+import InstructorForm from "./pages/claro/instructors/InstructorForm";
+import SegmentList from "./pages/claro/segments/SegmentList";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +51,13 @@ const App = () => (
             <Route path="/admin" element={<ProtectedRoute requiredRole="admin"><Admin /></ProtectedRoute>} />
             <Route path="/gestor" element={<ProtectedRoute requiredRole="gestor"><Gestor /></ProtectedRoute>} />
             <Route path="/instrutor" element={<ProtectedRoute requiredRole="instrutor"><Instrutor /></ProtectedRoute>} />
+
+            {/* Portal Claro Routes */}
+            <Route path="/claro" element={<ProtectedRoute requiredRole="instrutor"><ClaroPortal /></ProtectedRoute>} />
+            <Route path="/claro/instructors" element={<ProtectedRoute requiredRole="admin"><InstructorList /></ProtectedRoute>} />
+            <Route path="/claro/instructors/:id" element={<ProtectedRoute requiredRole="admin"><InstructorForm /></ProtectedRoute>} />
+            <Route path="/claro/segments" element={<ProtectedRoute requiredRole="admin"><SegmentList /></ProtectedRoute>} />
+
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
