@@ -28,9 +28,14 @@ export function IFoodIcon(props: SVGProps<SVGSVGElement>) {
 export function IFoodPagoIcon(props: SVGProps<SVGSVGElement>) {
     return (
         <img
-            src="/logos/ifood-pago.png"
+            src="/logos/ifood-pago-new.png"
             alt="iFood Pago"
-            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                filter: 'brightness(0) invert(1)'
+            }}
             {...props as any}
         />
     );
