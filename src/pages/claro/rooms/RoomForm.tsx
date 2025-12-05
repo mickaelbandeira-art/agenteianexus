@@ -16,16 +16,15 @@ import {
     getRooms,
     createRoom,
     updateRoom,
-    deleteRoom
 } from '@/lib/claro';
-import type { TrainingRoomInput, RoomStatus } from '@/lib/claro';
+import type { TrainingRoomInput, RoomStatus, ResourceItem } from '@/lib/claro';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
-// Helper to fetch room by ID (since it wasn't exported in api.ts initially)
+// Helper to fetch room by ID
 const getRoomById = async (id: string) => {
     const { data, error } = await supabase
-        .from('claro_training_rooms')
+        .from('salas')
         .select('*')
         .eq('id', id)
         .single();
@@ -33,11 +32,6 @@ const getRoomById = async (id: string) => {
     if (error) throw error;
     return data;
 };
-
-interface ResourceItem {
-    name: string;
-    quantity: number;
-}
 
 const RoomForm = () => {
     const navigate = useNavigate();
@@ -49,7 +43,7 @@ const RoomForm = () => {
         room_name: '',
         capacity: 0,
         location: '',
-        resources: [],
+        resources: [] as ResourceItem[],
         status: 'Disponível'
     });
 
@@ -68,11 +62,11 @@ const RoomForm = () => {
             setLoading(true);
             const data = await getRoomById(id);
             setFormData({
-                room_name: data.room_name,
-                capacity: data.capacity,
-                location: data.location,
-                resources: Array.isArray(data.resources) ? data.resources : [],
-                status: data.status
+                room_name: data.nome || '',
+                capacity: data.capacidade || 0,
+                location: data.localizacao || '',
+                resources: [] as ResourceItem[],
+                status: 'Disponível'
             });
         } catch (error) {
             toast({
@@ -89,7 +83,7 @@ const RoomForm = () => {
     const handleAddResource = () => {
         if (!newResource.name) return;
 
-        const currentResources = Array.isArray(formData.resources) ? formData.resources : [];
+        const currentResources = Array.isArray(formData.resources) ? formData.resources as ResourceItem[] : [];
         setFormData({
             ...formData,
             resources: [...currentResources, newResource]
@@ -98,7 +92,7 @@ const RoomForm = () => {
     };
 
     const handleRemoveResource = (index: number) => {
-        const currentResources = Array.isArray(formData.resources) ? formData.resources : [];
+        const currentResources = Array.isArray(formData.resources) ? formData.resources as ResourceItem[] : [];
         const newResources = [...currentResources];
         newResources.splice(index, 1);
         setFormData({
@@ -121,14 +115,22 @@ const RoomForm = () => {
 
         try {
             setLoading(true);
+            
+            // Map to salas table format
+            const salaData = {
+                nome: formData.room_name,
+                capacidade: formData.capacity,
+                localizacao: formData.location,
+            };
+
             if (id && id !== 'new') {
-                await updateRoom(id, formData);
+                await supabase.from('salas').update(salaData).eq('id', id);
                 toast({
                     title: 'Sala atualizada',
                     description: 'Os dados da sala foram atualizados com sucesso.',
                 });
             } else {
-                await createRoom(formData);
+                await supabase.from('salas').insert(salaData);
                 toast({
                     title: 'Sala criada',
                     description: 'A sala foi criada com sucesso.',
@@ -145,6 +147,8 @@ const RoomForm = () => {
             setLoading(false);
         }
     };
+
+    const resources = Array.isArray(formData.resources) ? formData.resources as ResourceItem[] : [];
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-6">
@@ -209,7 +213,7 @@ const RoomForm = () => {
                                     </Label>
                                     <Input
                                         id="location"
-                                        value={formData.location}
+                                        value={formData.location || ''}
                                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                         placeholder="Ex: Prédio A, 1º Andar"
                                         required
@@ -266,7 +270,7 @@ const RoomForm = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    {(formData.resources as ResourceItem[])?.map((resource, index) => (
+                                    {resources.map((resource, index) => (
                                         <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-md border">
                                             <div className="flex items-center gap-2">
                                                 <span className="font-medium">{resource.name}</span>
@@ -283,7 +287,7 @@ const RoomForm = () => {
                                             </Button>
                                         </div>
                                     ))}
-                                    {(!formData.resources || (formData.resources as any[]).length === 0) && (
+                                    {resources.length === 0 && (
                                         <p className="text-sm text-gray-500 text-center py-4">
                                             Nenhum recurso adicionado.
                                         </p>
