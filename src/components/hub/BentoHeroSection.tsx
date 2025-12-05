@@ -18,7 +18,7 @@ const clients = [
   },
   {
     name: "iFood Pago",
-    logo: "/logos/ifood-pago-new.png",
+    logo: "/logos/ifood-pago.png",
     color: "#6C1D45",
     href: "/clients/ifood-pago",
   },
