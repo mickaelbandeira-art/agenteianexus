@@ -73,9 +73,10 @@ export const ClientBlock = ({
           className={cn(
             "relative w-full h-full rounded-2xl overflow-hidden cursor-pointer group",
             "flex items-center justify-center",
+            "backdrop-blur-xl border border-white/20",
           )}
           style={{
-            backgroundColor: color,
+            backgroundColor: `${color}40`, // 40% opacity for glass effect
             rotateX,
             rotateY,
             transformStyle: "preserve-3d",
@@ -85,13 +86,14 @@ export const ClientBlock = ({
           onMouseLeave={handleMouseLeave}
           whileHover={{
             scale: 1.05,
+            backgroundColor: `${color}60`, // 60% opacity on hover
             transition: { duration: 0.3, ease: "easeOut" },
           }}
           whileTap={{ scale: 0.97 }}
         >
           {/* Animated gradient border */}
-          <div className="absolute inset-0 rounded-2xl p-[2px] bg-gradient-to-br from-white/40 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="w-full h-full rounded-2xl" style={{ backgroundColor: color }} />
+          <div className="absolute inset-0 rounded-2xl p-[2px] bg-gradient-to-br from-white/60 via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <div className="w-full h-full rounded-2xl backdrop-blur-xl" style={{ backgroundColor: `${color}50` }} />
           </div>
 
           {/* Glassmorphism overlay */}
