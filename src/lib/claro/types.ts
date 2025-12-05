@@ -13,11 +13,11 @@ export type ClassType = 'Onboarding' | 'Reciclagem' | 'Multiplicação';
 export type ClassStatus = 'Planejada' | 'Em Andamento' | 'Concluída' | 'Cancelada';
 export type TraineeStatus = 'Ativo' | 'Desistente' | 'Aprovado' | 'Reprovado';
 export type LocationType = 'AeC' | 'Externo';
-export type RoomStatus = 'Disponível' | 'Em Uso' | 'Manutenção';
+export type RoomStatus = 'Disponível' | 'Em Uso' | 'Manutenção' | 'Ocupada';
 export type AccessType = 'Claro' | 'Sistemas Internos' | 'VPN' | 'Outros' | 'Rede' | 'Email' | 'Sistema' | 'Crachá';
 export type AccessStatus = 'Solicitado' | 'Em Andamento' | 'Concluído' | 'Atrasado' | 'Pendente' | 'Cancelado';
 export type AccessRequestStatus = AccessStatus;
-export type ManualType = 'Operacional' | 'Conduta' | 'Sistemas' | 'Outros';
+export type ManualType = 'Operacional' | 'Conduta' | 'Sistemas' | 'Outros' | 'Técnico' | 'Administrativo' | 'Treinamento';
 
 // =====================================================
 // DATABASE ENTITIES
@@ -33,6 +33,9 @@ export interface ClaroInstructor {
     updated_at: string;
 }
 
+// Alias for backward compatibility
+export type Instructor = ClaroInstructor;
+
 export interface ClaroSegment {
     id: string;
     cr_code: string;
@@ -43,6 +46,9 @@ export interface ClaroSegment {
     created_at: string;
     updated_at: string;
 }
+
+// Alias for backward compatibility
+export type Segment = ClaroSegment;
 
 export interface ClaroTrainingClass {
     id: string;
@@ -75,6 +81,9 @@ export interface ClaroTrainee {
     updated_at: string;
 }
 
+// Alias for backward compatibility
+export type Trainee = ClaroTrainee;
+
 export interface ClaroMandatoryCourse {
     id: string;
     segment_id: string;
@@ -98,11 +107,15 @@ export interface ClaroTrainingRoom {
     room_name: string;
     location_type: LocationType;
     location_description: string | null;
+    location: string;
     capacity: number;
-    resources: RoomResources;
+    resources: RoomResources | ResourceItem[];
     status: RoomStatus;
     created_at: string;
 }
+
+// Alias for backward compatibility
+export type TrainingRoom = ClaroTrainingRoom;
 
 export interface RoomResources {
     tv?: boolean;
@@ -110,6 +123,11 @@ export interface RoomResources {
     whiteboard?: boolean;
     computers?: number;
     [key: string]: boolean | number | undefined;
+}
+
+export interface ResourceItem {
+    name: string;
+    quantity: number;
 }
 
 export interface ClaroAccessRequest {
@@ -164,6 +182,9 @@ export interface ClaroTrainingClassWithRelations extends ClaroTrainingClass {
     access_requests?: ClaroAccessRequest[];
 }
 
+// Alias for backward compatibility
+export type TrainingClassWithRelations = ClaroTrainingClassWithRelations;
+
 export interface ClaroTraineeWithRelations extends ClaroTrainee {
     class?: ClaroTrainingClass;
     courses?: ClaroTraineeCourseWithCourse[];
@@ -184,6 +205,7 @@ export interface ClaroManualWithHistory extends ClaroManual {
         email: string;
         full_name?: string;
     };
+    description?: string;
 }
 
 // =====================================================
@@ -212,12 +234,12 @@ export interface TrainingClassInput {
     period: ClassPeriod;
     class_type: ClassType;
     has_snack: boolean;
-    snack_value: number | null;
-    assisted_service_date: string | null;
-    medical_exam_date: string | null;
-    contract_signature_date: string | null;
+    snack_value?: number | null;
+    assisted_service_date?: string | null;
+    medical_exam_date?: string | null;
+    contract_signature_date?: string | null;
     start_date: string;
-    end_date: string | null;
+    end_date?: string | null;
     status: ClassStatus;
 }
 
@@ -239,10 +261,11 @@ export interface MandatoryCourseInput {
 
 export interface TrainingRoomInput {
     room_name: string;
-    location_type: LocationType;
+    location_type?: LocationType;
     location_description?: string;
+    location?: string;
     capacity: number;
-    resources: RoomResources;
+    resources: RoomResources | ResourceItem[];
     status: RoomStatus;
 }
 
@@ -268,6 +291,7 @@ export interface ManualInput {
     file_url: string;
     version: string;
     validity_date?: string;
+    description?: string;
 }
 
 export interface ManualHistoryInput {
@@ -275,6 +299,7 @@ export interface ManualHistoryInput {
     version: string;
     file_url: string;
     change_notes?: string;
+    change_description?: string;
 }
 
 // =====================================================

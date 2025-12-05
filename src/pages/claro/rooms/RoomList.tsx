@@ -13,14 +13,24 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Plus, Search, Edit, Trash2, Monitor, Wifi, Users } from 'lucide-react';
-import { getRooms, deleteRoom } from '@/lib/claro';
-import type { TrainingRoom } from '@/lib/claro';
+import type { ClaroTrainingRoom } from '@/lib/claro';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
+// Room type matching the salas table
+interface Sala {
+    id: string;
+    nome: string;
+    capacidade: number | null;
+    localizacao: string | null;
+    created_at: string | null;
+}
 
 const RoomList = () => {
     const navigate = useNavigate();
     const { toast } = useToast();
-    const [rooms, setRooms] = useState<TrainingRoom[]>([]);
+    const [rooms, setRooms] = useState<Sala[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -31,8 +41,13 @@ const RoomList = () => {
     const loadRooms = async () => {
         try {
             setLoading(true);
-            const data = await getRooms();
-            setRooms(data);
+            const { data, error } = await supabase
+                .from('salas')
+                .select('*')
+                .order('nome');
+            
+            if (error) throw error;
+            setRooms(data || []);
         } catch (error) {
             toast({
                 title: 'Erro ao carregar salas',
@@ -48,7 +63,9 @@ const RoomList = () => {
         if (!confirm('Tem certeza que deseja excluir esta sala?')) return;
 
         try {
-            await deleteRoom(id);
+            const { error } = await supabase.from('salas').delete().eq('id', id);
+            if (error) throw error;
+            
             toast({
                 title: 'Sala excluída',
                 description: 'A sala foi excluída com sucesso.',
@@ -64,38 +81,9 @@ const RoomList = () => {
     };
 
     const filteredRooms = rooms.filter((room) =>
-        room.room_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        room.location.toLowerCase().includes(searchTerm.toLowerCase())
+        room.nome?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        room.localizacao?.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'Disponível': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-            case 'Ocupada': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
-            case 'Manutenção': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
-            default: return 'bg-gray-100 text-gray-800';
-        }
-    };
-
-    const renderResources = (resources: any) => {
-        if (!resources || !Array.isArray(resources)) return null;
-
-        // Show icons for common resources
-        const hasProjector = resources.some((r: any) => r.name.toLowerCase().includes('projetor'));
-        const hasWifi = resources.some((r: any) => r.name.toLowerCase().includes('wifi') || r.name.toLowerCase().includes('internet'));
-        const hasPC = resources.some((r: any) => r.name.toLowerCase().includes('computador') || r.name.toLowerCase().includes('pc'));
-
-        return (
-            <div className="flex gap-2">
-                {hasProjector && <Monitor className="w-4 h-4 text-gray-500" title="Projetor" />}
-                {hasWifi && <Wifi className="w-4 h-4 text-gray-500" title="Wi-Fi" />}
-                {hasPC && <Users className="w-4 h-4 text-gray-500" title="Computadores" />}
-                <span className="text-xs text-gray-500 ml-1">
-                    {resources.length} itens
-                </span>
-            </div>
-        );
-    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-6">
@@ -153,36 +141,28 @@ const RoomList = () => {
                                         <TableHead>Nome</TableHead>
                                         <TableHead>Capacidade</TableHead>
                                         <TableHead>Localização</TableHead>
-                                        <TableHead>Recursos</TableHead>
-                                        <TableHead>Status</TableHead>
                                         <TableHead className="text-right">Ações</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {loading ? (
                                         <TableRow>
-                                            <TableCell colSpan={6} className="text-center py-8">
+                                            <TableCell colSpan={4} className="text-center py-8">
                                                 Carregando...
                                             </TableCell>
                                         </TableRow>
                                     ) : filteredRooms.length === 0 ? (
                                         <TableRow>
-                                            <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                                            <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
                                                 Nenhuma sala encontrada.
                                             </TableCell>
                                         </TableRow>
                                     ) : (
                                         filteredRooms.map((room) => (
                                             <TableRow key={room.id}>
-                                                <TableCell className="font-medium">{room.room_name}</TableCell>
-                                                <TableCell>{room.capacity} pessoas</TableCell>
-                                                <TableCell>{room.location}</TableCell>
-                                                <TableCell>{renderResources(room.resources)}</TableCell>
-                                                <TableCell>
-                                                    <Badge className={getStatusColor(room.status)}>
-                                                        {room.status}
-                                                    </Badge>
-                                                </TableCell>
+                                                <TableCell className="font-medium">{room.nome}</TableCell>
+                                                <TableCell>{room.capacidade || '-'} pessoas</TableCell>
+                                                <TableCell>{room.localizacao || '-'}</TableCell>
                                                 <TableCell className="text-right">
                                                     <div className="flex justify-end gap-2">
                                                         <Button

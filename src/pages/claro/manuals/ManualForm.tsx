@@ -12,7 +12,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { ArrowLeft, Save, Upload, FileText, X } from 'lucide-react';
+import { ArrowLeft, Save, FileText, X } from 'lucide-react';
 import {
     getSegments,
     createManual,
@@ -37,10 +37,10 @@ const ManualForm = () => {
     const [segments, setSegments] = useState<ClaroSegment[]>([]);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [currentFileUrl, setCurrentFileUrl] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
 
     const [formData, setFormData] = useState<ManualInput>({
         title: '',
-        description: '',
         manual_type: 'Operacional',
         version: '1.0',
         file_url: '',
@@ -71,12 +71,12 @@ const ManualForm = () => {
             const data = await getManualWithHistory(id);
             setFormData({
                 title: data.title,
-                description: data.description,
                 manual_type: data.manual_type,
                 version: data.version,
                 file_url: data.file_url,
-                segment_id: data.segment_id
+                segment_id: data.segment_id || undefined
             });
+            setDescription(data.description || '');
             setCurrentFileUrl(data.file_url);
         } catch (error) {
             toast({
@@ -178,9 +178,10 @@ const ManualForm = () => {
                 }
             }
 
-            const manualData = {
+            const manualData: ManualInput = {
                 ...formData,
-                file_url: fileUrl
+                file_url: fileUrl,
+                description: description
             };
 
             if (id && id !== 'new') {
@@ -193,7 +194,7 @@ const ManualForm = () => {
                         manual_id: id,
                         version: formData.version,
                         file_url: fileUrl,
-                        change_description: 'Arquivo atualizado'
+                        change_notes: 'Arquivo atualizado'
                     });
                 }
 
@@ -269,8 +270,8 @@ const ManualForm = () => {
                                     <Label htmlFor="description">Descrição</Label>
                                     <Textarea
                                         id="description"
-                                        value={formData.description || ''}
-                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
                                         placeholder="Descreva o conteúdo do manual..."
                                         rows={3}
                                     />

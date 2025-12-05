@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { BentoHeroSection } from "@/components/hub/BentoHeroSection";
+import { FuturisticHeroSection } from "@/components/hub/FuturisticHeroSection";
 import { AnimatedMarqueeHero } from "@/components/ui/hero-3";
 import { motion } from "framer-motion";
 
@@ -10,8 +10,8 @@ const Hub = () => {
       <Header />
 
       <main className="flex-1">
-        {/* New Bento Hero Section with Particles */}
-        <BentoHeroSection />
+        {/* Futuristic Hero Section with 3D Carousel */}
+        <FuturisticHeroSection />
 
         {/* Events Carousel */}
         <AnimatedMarqueeHero

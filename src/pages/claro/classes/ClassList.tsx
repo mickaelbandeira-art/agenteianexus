@@ -19,17 +19,16 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Plus, Search, Calendar, Users, Edit, Trash2 } from 'lucide-react';
+import { ArrowLeft, Plus, Search, Edit, Trash2 } from 'lucide-react';
 import { getClasses, deleteClass } from '@/lib/claro';
-import type { TrainingClassWithRelations, ClassStatus } from '@/lib/claro';
+import type { ClaroTrainingClassWithRelations, ClassStatus } from '@/lib/claro';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 
 const ClassList = () => {
     const navigate = useNavigate();
     const { toast } = useToast();
-    const [classes, setClasses] = useState<TrainingClassWithRelations[]>([]);
+    const [classes, setClasses] = useState<ClaroTrainingClassWithRelations[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<ClassStatus | 'all'>('all');

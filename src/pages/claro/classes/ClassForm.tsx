@@ -31,7 +31,6 @@ import type {
     Segment,
     ClassStatus,
     ClassPeriod,
-    ClassType,
     Trainee,
     TraineeInput
 } from '@/lib/claro';
@@ -61,7 +60,12 @@ const ClassForm = () => {
         class_type: 'Onboarding',
         start_date: format(new Date(), 'yyyy-MM-dd'),
         status: 'Planejada',
-        has_snack: false
+        has_snack: false,
+        snack_value: null,
+        assisted_service_date: null,
+        medical_exam_date: null,
+        contract_signature_date: null,
+        end_date: null
     });
 
     useEffect(() => {
@@ -218,10 +222,9 @@ const ClassForm = () => {
                         class_id: classId!,
                         full_name: trainee.full_name,
                         cpf: trainee.cpf,
-                        email: trainee.email,
-                        phone: trainee.phone,
+                        email: trainee.email || undefined,
+                        phone: trainee.phone || undefined,
                         status: trainee.status,
-                        registration_number: trainee.registration_number
                     };
 
                     if (trainee.id && !trainee.id.startsWith('temp-')) {
@@ -287,7 +290,7 @@ const ClassForm = () => {
                                         <div className="space-y-2">
                                             <Label htmlFor="segment">Segmento <span className="text-red-500">*</span></Label>
                                             <Select
-                                                value={formData.segment_id}
+                                                value={formData.segment_id || undefined}
                                                 onValueChange={(value) => setFormData({ ...formData, segment_id: value })}
                                             >
                                                 <SelectTrigger>
@@ -306,7 +309,7 @@ const ClassForm = () => {
                                         <div className="space-y-2">
                                             <Label htmlFor="instructor">Instrutor</Label>
                                             <Select
-                                                value={formData.instructor_id}
+                                                value={formData.instructor_id || undefined}
                                                 onValueChange={(value) => setFormData({ ...formData, instructor_id: value })}
                                             >
                                                 <SelectTrigger>
@@ -414,23 +417,16 @@ const ClassForm = () => {
                     </TabsContent>
 
                     <TabsContent value="trainees">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Nominal da Turma</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <ClassTrainees
-                                    trainees={trainees}
-                                    onAddTrainee={handleAddTrainee}
-                                    onRemoveTrainee={handleRemoveTrainee}
-                                    onUpdateStatus={handleUpdateTraineeStatus}
-                                />
-                            </CardContent>
-                        </Card>
+                        <ClassTrainees
+                            trainees={trainees}
+                            onAddTrainee={handleAddTrainee}
+                            onRemoveTrainee={handleRemoveTrainee}
+                            onUpdateStatus={handleUpdateTraineeStatus}
+                        />
                     </TabsContent>
 
                     <TabsContent value="courses">
-                        <ClassCourses segmentId={formData.segment_id} />
+                        <ClassCourses segmentId={formData.segment_id || ''} />
                     </TabsContent>
                 </Tabs>
             </div>
