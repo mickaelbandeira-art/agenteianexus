@@ -42,10 +42,37 @@ export const BentoHeroSection = () => {
       {/* Animated Particles Background */}
       <ParticlesBackground />
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/80 z-[1]" />
-      <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-cyan-500/5 to-transparent z-[1]" />
-      <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-tl from-purple-500/5 to-transparent z-[1]" />
+      {/* Animated grid pattern */}
+      <div className="absolute inset-0 opacity-[0.15]">
+        <div
+          className="absolute inset-0 animate-pulse"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(96, 165, 250, 0.1) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(96, 165, 250, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: "60px 60px",
+            animation: "grid-flow 20s linear infinite",
+          }}
+        />
+      </div>
+
+      {/* Dynamic gradient orbs */}
+      <div className="absolute top-20 left-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: "2s" }} />
+
+      {/* Gradient overlays with depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/50 to-slate-950/90 z-[1]" />
+      <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-cyan-500/10 via-cyan-500/5 to-transparent z-[1]" />
+      <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-tl from-purple-500/10 via-purple-500/5 to-transparent z-[1]" />
+
+      {/* Subtle scanline effect */}
+      <div className="absolute inset-0 z-[1] opacity-[0.03]"
+        style={{
+          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px)",
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-16 lg:py-24">
