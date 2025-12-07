@@ -2,7 +2,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface ClientBlockProps {
   name: string;
@@ -73,10 +73,10 @@ export const ClientBlock = ({
           className={cn(
             "relative w-full h-full rounded-2xl overflow-hidden cursor-pointer group",
             "flex items-center justify-center",
-            "backdrop-blur-xl border border-white/20",
+            "shadow-lg",
           )}
           style={{
-            backgroundColor: `${color}40`, // 40% opacity for glass effect
+            backgroundColor: color,
             rotateX,
             rotateY,
             transformStyle: "preserve-3d",
@@ -86,92 +86,12 @@ export const ClientBlock = ({
           onMouseLeave={handleMouseLeave}
           whileHover={{
             scale: 1.05,
-            backgroundColor: `${color}60`, // 60% opacity on hover
             transition: { duration: 0.3, ease: "easeOut" },
           }}
           whileTap={{ scale: 0.97 }}
         >
-          {/* Animated gradient border */}
-          <div className="absolute inset-0 rounded-2xl p-[2px] bg-gradient-to-br from-white/60 via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="w-full h-full rounded-2xl backdrop-blur-xl" style={{ backgroundColor: `${color}50` }} />
-          </div>
-
-          {/* Glassmorphism overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-[1px]" />
-
-          {/* Animated mesh gradient */}
-          <motion.div
-            className="absolute inset-0"
-            style={{
-              background: `radial-gradient(circle at 50% 50%, ${color}00 0%, ${color}40 100%)`,
-            }}
-            animate={{
-              scale: isHovered ? [1, 1.2, 1] : 1,
-              opacity: isHovered ? [0.3, 0.6, 0.3] : 0,
-            }}
-            transition={{
-              duration: 2,
-              repeat: isHovered ? Infinity : 0,
-              ease: "easeInOut",
-            }}
-          />
-
-          {/* Glow effect */}
-          <motion.div
-            className="absolute inset-0 opacity-0 blur-2xl"
-            style={{ backgroundColor: color }}
-            animate={{
-              opacity: isHovered ? 0.4 : 0,
-            }}
-            transition={{ duration: 0.4 }}
-          />
-
-          {/* Shine sweep effect */}
-          <motion.div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100"
-            initial={false}
-            animate={{
-              background: isHovered
-                ? [
-                  "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 60%, transparent 100%)",
-                  "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 60%, transparent 100%)",
-                ]
-                : "linear-gradient(90deg, transparent 0%, transparent 100%)",
-              backgroundPosition: isHovered ? ["-200%", "200%"] : "0%",
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: isHovered ? Infinity : 0,
-              ease: "linear",
-            }}
-          />
-
-          {/* Floating particles effect */}
-          {isHovered && (
-            <>
-              {[...Array(3)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1 h-1 bg-white/60 rounded-full"
-                  initial={{
-                    x: Math.random() * 100 + "%",
-                    y: "100%",
-                    opacity: 0,
-                  }}
-                  animate={{
-                    y: "-20%",
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 2 + Math.random(),
-                    delay: i * 0.3,
-                    repeat: Infinity,
-                    ease: "easeOut",
-                  }}
-                />
-              ))}
-            </>
-          )}
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
           {/* Logo with enhanced effects */}
           <motion.div
@@ -184,12 +104,9 @@ export const ClientBlock = ({
             <motion.img
               src={logo}
               alt={name}
-              className="h-10 md:h-14 lg:h-16 object-contain filter brightness-0 invert drop-shadow-2xl"
+              className="h-10 md:h-14 lg:h-16 object-contain filter brightness-0 invert drop-shadow-lg"
               animate={{
-                scale: isHovered ? 1.15 : 1,
-                filter: isHovered
-                  ? "brightness(0) invert(1) drop-shadow(0 0 20px rgba(255,255,255,0.8))"
-                  : "brightness(0) invert(1) drop-shadow(0 10px 25px rgba(0,0,0,0.3))",
+                scale: isHovered ? 1.1 : 1,
               }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             />
