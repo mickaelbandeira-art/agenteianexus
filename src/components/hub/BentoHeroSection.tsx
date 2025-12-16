@@ -1,40 +1,7 @@
 import { motion } from "framer-motion";
 import { ParticlesBackground } from "./ParticlesBackground";
-import { ClientBlock } from "./ClientBlock";
+import { DynamicMockup } from "./DynamicMockup";
 import aecLogo from "@/assets/aec-logo-new.png";
-
-const clients = [
-  {
-    name: "Claro",
-    logo: "/logos/claro.png",
-    color: "#DA291C",
-    href: "/clients/claro",
-  },
-  {
-    name: "iFood",
-    logo: "/logos/ifood.png",
-    color: "#EA1D2C",
-    href: "/clients/ifood",
-  },
-  {
-    name: "iFood Pago",
-    logo: "/logos/ifood-pago.png",
-    color: "#6C1D45",
-    href: "/clients/ifood-pago",
-  },
-  {
-    name: "Ton",
-    logo: "/logos/ton.png",
-    color: "#00C853",
-    href: "/clients/ton",
-  },
-  {
-    name: "Inter",
-    logo: "/logos/inter.png",
-    color: "#FF7A00",
-    href: "/clients/inter",
-  },
-];
 
 export const BentoHeroSection = () => {
   return (
@@ -64,8 +31,7 @@ export const BentoHeroSection = () => {
 
       {/* Gradient overlays with depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/50 to-slate-950/90 z-[1]" />
-      <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-cyan-500/10 via-cyan-500/5 to-transparent z-[1]" />
-      <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-tl from-purple-500/10 via-purple-500/5 to-transparent z-[1]" />
+
 
       {/* Subtle scanline effect */}
       <div className="absolute inset-0 z-[1] opacity-[0.03]"
@@ -135,80 +101,17 @@ export const BentoHeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Bento Grid + AeC Logo */}
+          {/* Right Side - Dynamic Mockup + AeC Logo */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             className="flex flex-col gap-6"
           >
-            {/* Bento Grid */}
-            <div className="grid grid-cols-3 grid-rows-3 gap-3 h-[400px] md:h-[450px] lg:h-[500px]">
-              {/* Claro - Column 1, Rows 1-2 */}
-              <ClientBlock
-                name={clients[0].name}
-                logo={clients[0].logo}
-                color={clients[0].color}
-                href={clients[0].href}
-                index={0}
-                className="col-span-1 row-span-2"
-              />
+            {/* Dynamic Mockup */}
+            <DynamicMockup />
 
-              {/* iFood - Columns 2-3, Row 1 */}
-              <ClientBlock
-                name={clients[1].name}
-                logo={clients[1].logo}
-                color={clients[1].color}
-                href={clients[1].href}
-                index={1}
-                className="col-span-2 row-span-1"
-              />
 
-              {/* iFood Pago - Column 2, Row 2 */}
-              <ClientBlock
-                name={clients[2].name}
-                logo={clients[2].logo}
-                color={clients[2].color}
-                href={clients[2].href}
-                index={2}
-                className="col-span-1 row-span-1"
-              />
-
-              {/* Ton - Column 3, Row 2 */}
-              <ClientBlock
-                name={clients[3].name}
-                logo={clients[3].logo}
-                color={clients[3].color}
-                href={clients[3].href}
-                index={3}
-                className="col-span-1 row-span-1"
-              />
-
-              {/* Inter - Columns 1-3, Row 3 */}
-              <ClientBlock
-                name={clients[4].name}
-                logo={clients[4].logo}
-                color={clients[4].color}
-                href={clients[4].href}
-                index={4}
-                className="col-span-3 row-span-1"
-              />
-            </div>
-
-            {/* AeC Logo */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="flex justify-end items-center gap-3"
-            >
-              <span className="text-slate-400 text-sm">Powered by</span>
-              <img
-                src={aecLogo}
-                alt="AeC"
-                className="h-10 md:h-12 object-contain opacity-90 hover:opacity-100 transition-opacity"
-              />
-            </motion.div>
           </motion.div>
         </div>
       </div>

@@ -1,7 +1,9 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BentoHeroSection } from "@/components/hub/BentoHeroSection";
+import { ClientCards } from "@/components/hub/ClientCards";
 import { AnimatedMarqueeHero } from "@/components/ui/hero-3";
+import { GestoresCarousel } from "@/components/hub/GestoresCarousel";
 import { motion } from "framer-motion";
 
 const Hub = () => {
@@ -12,6 +14,9 @@ const Hub = () => {
       <main className="flex-1">
         {/* Bento Grid Hero Section */}
         <BentoHeroSection />
+
+        {/* Client Cards */}
+        <ClientCards />
 
         {/* Events Carousel */}
         <AnimatedMarqueeHero
@@ -42,6 +47,9 @@ const Hub = () => {
             "/eventos/evento-14.jpg",
           ]}
         />
+
+        {/* Gestores Carousel */}
+        <GestoresCarousel />
 
         {/* Features Section */}
         <section className="bg-muted/30 py-16">
