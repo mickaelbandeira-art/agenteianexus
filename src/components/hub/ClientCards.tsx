@@ -43,7 +43,7 @@ const clients: Client[] = [
 
 export const ClientCards = () => {
     return (
-        <section className="relative py-16 bg-gradient-to-b from-slate-950 to-slate-900">
+        <section className="relative pt-0 pb-16 bg-gradient-to-b from-slate-950 to-slate-900">
             <div className="container mx-auto px-4">
                 {/* Grid of client cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">

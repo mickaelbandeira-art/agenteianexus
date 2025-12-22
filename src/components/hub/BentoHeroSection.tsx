@@ -5,7 +5,7 @@ import aecLogo from "@/assets/aec-logo-new.png";
 
 export const BentoHeroSection = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Animated Particles Background */}
       <ParticlesBackground />
 
@@ -41,8 +41,8 @@ export const BentoHeroSection = () => {
       />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-16 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[calc(100vh-8rem)]">
+      <div className="relative z-10 container mx-auto px-4 pt-16 pb-0 lg:pt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Side - Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
